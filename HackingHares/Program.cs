@@ -18,6 +18,7 @@ namespace HackingHares
             var directory = Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "Input");
             var files = Directory.GetFiles($"{directory}", "*.in");
 
+            long total = 0;
 
             foreach (var infile in files)
             {
@@ -32,9 +33,17 @@ namespace HackingHares
                 Console.WriteLine($"Input summary: {input}");
                 Console.WriteLine($"Output summary: {output}");
                 Console.WriteLine($"Score: {score}");
+                Console.WriteLine();
+                Console.WriteLine();
+                total += score;
 
                 WriteOutput(output, outfile);
             }
+
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine($"TOTAL SCORE: {total}");
 
             Console.ReadLine();
         }
