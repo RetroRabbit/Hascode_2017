@@ -20,7 +20,15 @@ namespace HackingHares
 
             var input = ReadInput(args[0]);
             var output = Process(input);
+
+            int score = Scorer.Score(input, output);
+            Console.WriteLine($"Input summary: {input}");
+            Console.WriteLine($"Output summary: {output}");
+            Console.WriteLine($"Score: {score}");
+
             WriteOutput(output, outfile);
+
+            Console.ReadLine();
         }
 
         /// <summary>
