@@ -13,7 +13,7 @@ namespace HackingHares
 
         public override string ToString()
         {
-            return $"Using {CacheServerDescriptions?.Length ?? 0} Cache servers with a total of {CacheServerDescriptions.Sum(b => b.VideoIds.Length)} Videos";
+            return $"Using {CacheServerDescriptions?.Length ?? 0} Cache servers with a total of {CacheServerDescriptions.Sum(b => b.VideoIds.Count)} Videos";
         }
     }
 }
