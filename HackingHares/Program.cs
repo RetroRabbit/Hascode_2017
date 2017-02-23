@@ -18,6 +18,11 @@ namespace HackingHares
             var directory = Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "Input");
             var files = Directory.GetFiles($"{directory}", "*.in");
 
+            //read last best
+            var scorefile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".hackinghares");
+            int lastBest = 0;
+            if (File.Exists(scorefile)) lastBest = int.Parse(File.ReadAllText(scorefile));
+
             long total = 0;
 
             foreach (var infile in files)
@@ -32,7 +37,9 @@ namespace HackingHares
                 Console.WriteLine($"File: {filename}");
                 Console.WriteLine($"Input summary: {input}");
                 Console.WriteLine($"Output summary: {output}");
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine($"Score: {score}");
+                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine();
                 Console.WriteLine();
                 total += score;
@@ -43,7 +50,20 @@ namespace HackingHares
 
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine($"TOTAL SCORE: {total}");
+            if (lastBest < total)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"**NEW BEST**: {total}");
+                File.WriteAllText(scorefile, total.ToString());
+            }
+            else
+            {
+                Console.WriteLine($"TOTAL SCORE: {total}");
+                Console.Write($"Previous best score: {lastBest}");
+            }
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+            
 
             Console.ReadLine();
         }
