@@ -8,7 +8,6 @@ namespace HackingHares
     /// </summary>
     public class OutputStructure
     {
-        //for example
-        public IDictionary<string, int> WordOccurrences { get; set; }
+        public CacheServerDescription[] CacheServerDescriptions { get; set; }
     }
 }
