@@ -208,7 +208,7 @@ namespace HackingHares
         private static void WriteOutput(OutputStructure output, string outputFileName)
         {
             //for example
-            using (var outfile = new StreamWriter(File.OpenWrite(outputFileName)))
+            using (var outfile = File.CreateText(outputFileName))
             {
                 if (output == null) return;
 
