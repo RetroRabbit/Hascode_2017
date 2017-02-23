@@ -5,7 +5,7 @@
 # Requires: ExecutionPolicy be set to RemoteSigned [Set-ExecutionPolicy -ExecutionPolicy RemoteSigned]
 # --------------------------------------------------------------------------------------
 
-$source = $env:USERPROFILE + "\OneDrive\Hacking-Hares\HackingHares\*.cs"
+$source = "HackingHares\*.cs"
 $destination = "HackingHares.zip"
 
 Compress-Archive -Path $source -DestinationPath $destination
