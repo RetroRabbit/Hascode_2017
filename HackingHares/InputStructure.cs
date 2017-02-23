@@ -16,5 +16,10 @@
         public Endpoint[] Endpoints { get; set; }
         
         public Description[] Descriptions { get; set; }
+
+        public override string ToString()
+        {
+            return $"{NumVideos} Videos, {NumEndpoints} Endpoints, {NumRequestDescriptions} Request Descriptions, {NumCacheServers} Cache Servers with {Capacity}MB Capacity";
+        }
     }
 }

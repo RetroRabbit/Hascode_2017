@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace HackingHares
 {
@@ -9,5 +10,10 @@ namespace HackingHares
     public class OutputStructure
     {
         public CacheServerDescription[] CacheServerDescriptions { get; set; }
+
+        public override string ToString()
+        {
+            return $"Using {CacheServerDescriptions?.Length ?? 0} Cache servers with a total of {CacheServerDescriptions.Sum(b => b.VideoIds.Length)} Videos";
+        }
     }
 }
