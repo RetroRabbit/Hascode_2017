@@ -15,9 +15,12 @@ namespace HackingHares
     {
         static void Main(string[] args)
         {
+            var infile = args[0];
+            var outfile = $"{Path.Combine(Path.GetDirectoryName(infile), Path.GetFileNameWithoutExtension(infile))}.out";
+
             var input = ReadInput(args[0]);
             var output = Process(input);
-            WriteOutput(output, args[1]);
+            WriteOutput(output, outfile);
         }
 
         /// <summary>
@@ -103,6 +106,16 @@ namespace HackingHares
             //for example
             using (var outfile = new StreamWriter(File.OpenWrite(outputFileName)))
             {
+                if (output == null) return;
+
+                outfile.WriteLine(output.CacheServerDescriptions.Length);
+
+                foreach (var o in output.CacheServerDescriptions)
+                {
+                    outfile.Write($"{o.Id} ");
+                    foreach (var v in o.VideoIds) outfile.Write($"{v} ");
+                    outfile.WriteLine();
+                }
             }
         }
     }
