@@ -11,7 +11,7 @@ namespace HackingHares
     /// <summary>
     /// Program that counts the number of lines in which each word occurs.
     /// </summary>
-    class Program
+    public static class Program
     {
         static void Main(string[] args)
         {
@@ -26,16 +26,63 @@ namespace HackingHares
         /// <param name="filename">The file to read from</param>
         private static InputStructure ReadInput(string filename)
         {
+            InputStructure input = new InputStructure();
+
             using (var reader = File.OpenText(filename))
             {
-                //for example
                 List<string> lines = new List<string>();
-                
+                var descriptor = reader.ReadIntegers();
 
+                input.NumVideos = descriptor[0];
+                input.NumEndpoints = descriptor[1];
+                input.NumRequestDescriptions = descriptor[2];
+                input.NumCacheServers = descriptor[3];
+                input.Capacity = descriptor[4];
+
+                input.VideoSizes = reader.ReadIntegers();
+
+                input.Endpoints = Enumerable.Range(0, input.NumEndpoints)
+                    .Select(_ =>
+                    {
+                        var epDescriptor = reader.ReadIntegers();
+                        int numConnections = epDescriptor[1];
+
+                        return new Endpoint
+                        {
+                            Number = _,
+                            Latency = epDescriptor[0],
+                            Connections = Enumerable.Range(0, numConnections)
+                                .Select(c =>
+                                {
+                                    var connLine = reader.ReadIntegers();
+                                    return new Connection
+                                    {
+                                        Id = connLine[0],
+                                        Latency = connLine[1]
+                                    };
+                                }).ToArray()
+                        };
+                    })
+                    .ToArray();
+
+                input.Descriptions = Enumerable.Range(0, input.NumRequestDescriptions)
+                    .Select(_ =>
+                    {
+                        var dDescriptor = reader.ReadIntegers();
+
+                        return new Description
+                        {
+                            VideoId = dDescriptor[0],
+                            EndpointId = dDescriptor[1],
+                            NumRequests = dDescriptor[2],
+                        };
+                    }).ToArray();
             }
 
             return null;
         }
+
+        public static int[] ReadIntegers(this StreamReader reader) => reader.ReadLine().Split(' ').Select(x => int.Parse(x)).ToArray();
 
         /// <summary>
         /// Process input into output
