@@ -30,17 +30,10 @@ namespace HackingHares
             {
                 //for example
                 List<string> lines = new List<string>();
-
-                while (!reader.EndOfStream)
-                {
-                    lines.Add(reader.ReadLine());
-                }
-
-                return new InputStructure
-                {
-                    Lines = lines.ToArray()
-                };
+                
             }
+
+            return null;
         }
 
         /// <summary>
@@ -49,25 +42,7 @@ namespace HackingHares
         /// <param name="input">The input to process</param>
         private static OutputStructure Process(InputStructure input)
         {
-            //remove duplicate items within lines
-            var narrowed = input.Lines.Select(x => Regex.Split(x, @"\s+").Distinct(StringComparer.OrdinalIgnoreCase));
-
-            //flatten
-            var flat = narrowed.SelectMany(x => x);
-
-            //group
-            var grouped = flat.GroupBy(x => x, StringComparer.OrdinalIgnoreCase);
-
-            //count
-            var dictionary = grouped.ToDictionary(x => x.Key, x => x.Count());
-
-            //structure
-            var result = new OutputStructure
-            {
-                WordOccurrences = dictionary
-            };
-
-            return result;
+            return null;
         }
 
         /// <summary>
@@ -80,12 +55,7 @@ namespace HackingHares
             //for example
             using (var outfile = new StreamWriter(File.OpenWrite(outputFileName)))
             {
-                foreach (var word in output.WordOccurrences)
-                {
-                    outfile.WriteLine($"{word.Key}\t{word.Value}");
-                }
             }
         }
-
     }
 }

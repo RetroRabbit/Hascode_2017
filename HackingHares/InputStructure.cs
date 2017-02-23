@@ -14,8 +14,7 @@
         public int[] Sizes { get; set; }
 
         public Endpoint[] Endpoints { get; set; }
-
-        //for example
-        public string[] Lines { get; set; }
+        
+        public Description[] Descriptions { get; set; }
     }
 }

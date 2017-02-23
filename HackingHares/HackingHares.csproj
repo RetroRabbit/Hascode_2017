@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="Description.cs" />
     <Compile Include="Endpoint.cs" />
     <Compile Include="InputStructure.cs" />
     <Compile Include="OutputStructure.cs" />
