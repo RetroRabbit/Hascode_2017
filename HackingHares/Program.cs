@@ -15,9 +15,8 @@ namespace HackingHares
     {
         static void Main(string[] args)
         {
-            var inpath = args[0];
-            var directory = Path.GetDirectoryName(inpath);
-            var files = Directory.GetFiles(directory, Path.GetFileName(inpath));
+            var directory = Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "Input");
+            var files = Directory.GetFiles($"{directory}", "*.in");
 
 
             foreach (var infile in files)
