@@ -5,6 +5,16 @@
     /// </summary>
     public class InputStructure
     {
+        public int NumVideos { get; set; }
+        public int NumEndpoints { get; set; }
+        public int NumDescriptions { get; set; }
+        public int NumCacheServers { get; set; }
+        public int Capacity { get; set; }
+
+        public int[] Sizes { get; set; }
+
+        public Endpoint[] Endpoints { get; set; }
+
         //for example
         public string[] Lines { get; set; }
     }
