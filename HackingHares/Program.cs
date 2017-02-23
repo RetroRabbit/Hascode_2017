@@ -82,7 +82,7 @@ namespace HackingHares
                     }).ToArray();
             }
 
-            return null;
+            return input;
         }
 
         public static int[] ReadIntegers(this StreamReader reader) => reader.ReadLine().Split(' ').Select(x => int.Parse(x)).ToArray();
