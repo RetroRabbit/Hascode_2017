@@ -15,18 +15,27 @@ namespace HackingHares
     {
         static void Main(string[] args)
         {
-            var infile = args[0];
-            var outfile = $"{Path.Combine(Path.GetDirectoryName(infile), Path.GetFileNameWithoutExtension(infile))}.out";
+            var inpath = args[0];
+            var directory = Path.GetDirectoryName(inpath);
+            var files = Directory.GetFiles(directory, Path.GetFileName(inpath));
 
-            var input = ReadInput(args[0]);
-            var output = Process(input);
 
-            int score = Scorer.Score(input, output);
-            Console.WriteLine($"Input summary: {input}");
-            Console.WriteLine($"Output summary: {output}");
-            Console.WriteLine($"Score: {score}");
+            foreach (var infile in files)
+            {
+                var filename = Path.GetFileNameWithoutExtension(infile);
+                var outfile = $"{Path.Combine(directory, filename)}.out";
 
-            WriteOutput(output, outfile);
+                var input = ReadInput(infile);
+                var output = Process(input);
+
+                int score = Scorer.Score(input, output);
+                Console.WriteLine($"File: {filename}");
+                Console.WriteLine($"Input summary: {input}");
+                Console.WriteLine($"Output summary: {output}");
+                Console.WriteLine($"Score: {score}");
+
+                WriteOutput(output, outfile);
+            }
 
             Console.ReadLine();
         }
@@ -101,7 +110,32 @@ namespace HackingHares
         /// <param name="input">The input to process</param>
         private static OutputStructure Process(InputStructure input)
         {
-            return null;
+            int currentCache= 0;
+            CacheServerDescription[] caches = new CacheServerDescription[input.NumCacheServers];
+            for (var c = 0; c < caches.Length; c++) caches[c] = new CacheServerDescription { Id = c };
+
+            for (int videoId=0;videoId< input.VideoSizes.Length;videoId++)
+            {
+                var videoSize = input.VideoSizes[videoId];
+
+                //look for a cache that has space
+                while (currentCache < caches.Length &&
+                    caches[currentCache].Usage + videoSize > input.Capacity)
+                {
+                    currentCache++;
+                }
+
+                if (currentCache >= caches.Length) break;
+
+                //put v in cache server
+                caches[currentCache].VideoIds.Add(videoId);
+                caches[currentCache].Usage += videoSize;
+            }
+
+            return new OutputStructure
+            {
+                CacheServerDescriptions = caches
+            };
         }
 
         /// <summary>
