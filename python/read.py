@@ -1,7 +1,16 @@
-import re
+num_vids = None
+num_endpoints = None
+num_request_desc = None
+num_caches = None
+cache_size = None
+vid_sizes = None
+endpoints = None
+request_descriptions = None
 
 def readfile(filename):
     with open(filename, 'r') as f:
+        global num_vids, num_endpoints, num_request_desc, num_caches, cache_size, vid_sizes, endpoints,\
+            request_descriptions
         #5 videos, 2 endpoints, 4 request descriptions, 3 caches 100MB each.
         num_vids, num_endpoints, num_request_desc, num_caches, cache_size = [int(x) for x in next(f).split()] # read first line
 
@@ -32,8 +41,6 @@ def readfile(filename):
                 'endpoint_index': endpoint_index,
                 'num_r': number_of_requests
             })
-        
-        return num_vids, num_endpoints, num_request_desc, num_caches, cache_size, vid_sizes, endpoints, request_descriptions
         #Endpoint 0 has 1000ms datacenter latency and is connected to 3 caches:
         #The latency (of endpoint 0) to cache 0 is 100ms.
         #The latency (of endpoint 0) to cache 2 is 200ms.
