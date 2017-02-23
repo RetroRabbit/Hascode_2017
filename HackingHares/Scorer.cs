@@ -39,12 +39,12 @@ namespace HackingHares
                     var Lmin = Math.Min(cacheServerLatency, Ld);
 
                     var saved = Ld - Lmin;
-                    var savedMicro = saved * 1000;
+                    var savedMicro = saved;
                     Interlocked.Add(ref sumSaved, savedMicro * req.NumRequests);
                     Interlocked.Add(ref sumRequests, req.NumRequests);
                 });
 
-            return (int)(sumSaved / sumRequests);
+            return (int)((sumSaved * 1000) / sumRequests);
         }
     }
 }
