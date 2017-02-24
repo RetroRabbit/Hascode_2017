@@ -15,7 +15,7 @@ namespace HackingHares
     {
         static void Main(string[] args)
         {
-            var directory = Path.Combine(Environment.CurrentDirectory, "..", "..", "..", "Input");
+            var directory = Path.Combine(Environment.CurrentDirectory, "..", "..", "Input");
             var files = Directory.GetFiles($"{directory}", "*.in");
 
             //read last best

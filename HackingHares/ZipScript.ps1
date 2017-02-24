@@ -5,7 +5,7 @@
 # Requires: ExecutionPolicy be set to RemoteSigned [Set-ExecutionPolicy -ExecutionPolicy RemoteSigned]
 # --------------------------------------------------------------------------------------
 
-$source = "HackingHares\*.cs"
+$source = "*.cs"
 $destination = "HackingHares.zip"
 
 Compress-Archive -Path $source -DestinationPath $destination
