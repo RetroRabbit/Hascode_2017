@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -138,66 +138,7 @@ namespace HackingHares
         /// <param name="input">The input to process</param>
         private static OutputStructure Process(InputStructure input)
         {
-            int currentCache = 0;
-            CacheServerDescription[] caches = new CacheServerDescription[input.NumCacheServers];
-            for (var c = 0; c < caches.Length; c++) caches[c] = new CacheServerDescription { Id = c };
-
-            for (int videoId = 0; videoId < input.VideoSizes.Length; videoId++)
-            {
-                var videoSize = input.VideoSizes[videoId];
-
-                //look for a cache that has space
-                //while (currentCache < caches.Length &&
-                //    caches[currentCache].Usage + videoSize > input.Capacity)
-                //{
-                //    currentCache++;
-                //}
-
-                //if (currentCache >= caches.Length) break;
-
-                ////put v in cache server
-                //caches[currentCache].VideoIds.Add(videoId);
-                //caches[currentCache].Usage += videoSize;
-                foreach (Description video in input.Descriptions)
-                {
-                    if (video.VideoId == videoId)
-                    {
-                        checkCache(input.Capacity, video, videoSize, caches, input.Endpoints);
-                        break;
-                    }
-                }
-            }
-
-            return new OutputStructure
-            {
-                CacheServerDescriptions = caches
-            };
-        }
-
-        private static void checkCache(int capacity, Description video, int videosize, CacheServerDescription[] caches, Endpoint[] endpoints)
-        {
-            //Buildup ordered list of viable caches for current video
-            int[] cacheList = null;
-            for (int i = 0; i < endpoints.Length; i++)
-            {
-                if (video.EndpointId == endpoints[i].Number)
-                {
-                    cacheList = new int[endpoints[i].Connections.Length];
-                    for (int j = 0; j < endpoints[i].Connections.Length; j++)
-                    {
-                        cacheList[j] = endpoints[i].Connections[j].Id;
-                    }
-                    break;
-                }
-            }
-            for (int i = 0; i < cacheList.Length; i++)
-            {
-                if (caches[cacheList[i]].Usage + videosize <= capacity)
-                {
-                    caches[cacheList[i]].VideoIds.Add(video.VideoId);
-                    caches[cacheList[i]].Usage += videosize;
-                }
-            }
+            return Processor.Process(input);
         }
 
         /// <summary>
